@@ -2,10 +2,11 @@ import "react-native-url-polyfill/auto";
 import { createClient } from "@supabase/supabase-js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Supabase 설정 - 실제 프로젝트에서는 환경변수로 관리해야 합니다
-const supabaseUrl = "https://abzmeoeossurcgaqssla.supabase.co";
-const supabaseAnonKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiem1lb2Vvc3N1cmNnYXFzc2xhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIzMDU5OTMsImV4cCI6MjA2Nzg4MTk5M30.r--UMEiilRQM7ooBSKOZ30E6lKue7JMi68VRsaYmN04";
+const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl) throw new Error("SUPABASE_URL is required");
+if (!supabaseAnonKey) throw new Error("SUPABASE_ANON_KEY is required");
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
